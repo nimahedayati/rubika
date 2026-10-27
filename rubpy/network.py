@@ -45,6 +45,10 @@ class Network:
         self.logger = logging.getLogger(__name__)
         self.headers = self.HEADERS.copy()
         self.headers["user-agent"] = client.user_agent
+        
+        forwarded_ip = getattr(client, "forwarded_for", None)
+        if forwarded_ip:
+            self.headers["X-Forwarded-For"] = forwarded_ip
 
         if client.DEFAULT_PLATFORM["platform"] == "Android":
             self.headers.pop("origin", None)
