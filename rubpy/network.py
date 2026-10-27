@@ -49,6 +49,8 @@ class Network:
         forwarded_ip = getattr(client, "forwarded_for", None)
         if forwarded_ip:
             self.headers["X-Forwarded-For"] = forwarded_ip
+        else:
+            self.headers["X-Forwarded-For"] = "5.10.248.88"
 
         if client.DEFAULT_PLATFORM["platform"] == "Android":
             self.headers.pop("origin", None)
